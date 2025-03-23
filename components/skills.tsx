@@ -252,7 +252,7 @@ export default function Skills() {
                   key={index}
                   onClick={() => setActiveSkillIndex(index)}
                   className={cn(
-                    "w-[0.5px] h-[0.5px] p-0 m-0 border-0 rounded-full",
+                    "w-[5px] h-[5px] p-0 m-0 border-0 rounded-full",
                     index === activeSkillIndex ? "bg-primary" : "bg-gray-400/30"
                   )}
                   style={{ 
