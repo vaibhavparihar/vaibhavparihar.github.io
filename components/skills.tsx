@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
 import { Card, CardContent } from "./ui/card"
 import { Code, Database, Cpu, LineChart, Layers, Terminal, ChevronLeft, ChevronRight } from "lucide-react"
@@ -78,9 +78,12 @@ const skillCategories = [
 
 export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null)
+  const carouselRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 })
   // Add state for current active skill in mobile view
   const [activeSkillIndex, setActiveSkillIndex] = useState(0)
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
 
   // Function to navigate to next skill card in mobile view
   const goToNextSkill = () => {
@@ -90,6 +93,35 @@ export default function Skills() {
   // Function to navigate to previous skill card in mobile view
   const goToPrevSkill = () => {
     setActiveSkillIndex((prev) => (prev - 1 + skillCategories.length) % skillCategories.length)
+  }
+
+  // Touch event handlers for swipe functionality
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > 50
+    const isRightSwipe = distance < -50
+    
+    if (isLeftSwipe) {
+      goToNextSkill()
+    }
+    
+    if (isRightSwipe) {
+      goToPrevSkill()
+    }
+    
+    // Reset values
+    setTouchStart(0)
+    setTouchEnd(0)
   }
 
   return (
@@ -147,25 +179,15 @@ export default function Skills() {
           ))}
         </div>
 
-        {/* Mobile View - Improved Carousel/Slider */}
+        {/* Mobile View - Improved Carousel/Slider with Touch Support */}
         <div className="sm:hidden">
-          <div className="relative px-10">
-            {/* Container with previous card preview (blurred) */}
-            {activeSkillIndex > 0 && (
-              <div className="absolute left-0 top-0 w-14 h-full opacity-30 overflow-hidden pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background z-10"></div>
-                <Card className="h-full scale-90 blur-[2px] dark:bg-[#141414] border-white/5">
-                  <CardContent className="p-3">
-                    <div className="flex items-center mb-3">
-                      <div className="mr-2 p-1 rounded-full bg-primary/10">
-                        {skillCategories[(activeSkillIndex - 1 + skillCategories.length) % skillCategories.length].icon}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-            
+          <div 
+            className="relative px-10"
+            ref={carouselRef}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             {/* Previous button - just the arrow icon */}
             <button 
               onClick={goToPrevSkill}
@@ -220,25 +242,9 @@ export default function Skills() {
             >
               <ChevronRight className="h-6 w-6" />
             </button>
-
-            {/* Container with next card preview (blurred) */}
-            {activeSkillIndex < skillCategories.length - 1 && (
-              <div className="absolute right-0 top-0 w-14 h-full opacity-30 overflow-hidden pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background z-10"></div>
-                <Card className="h-full scale-90 blur-[2px] dark:bg-[#141414] border-white/5">
-                  <CardContent className="p-3">
-                    <div className="flex items-center mb-3">
-                      <div className="mr-2 p-1 rounded-full bg-primary/10">
-                        {skillCategories[(activeSkillIndex + 1) % skillCategories.length].icon}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
           </div>
 
-          {/* Ultra-small dot indicators - 70% smaller than before */}
+          {/* Ultra-tiny dot indicators - now truly small */}
           <div className="mt-3 flex justify-center items-center">
             <div className="flex space-x-2">
               {skillCategories.map((_, index) => (
@@ -246,8 +252,8 @@ export default function Skills() {
                   key={index}
                   onClick={() => setActiveSkillIndex(index)}
                   className={cn(
-                    "w-[3px] h-[3px] rounded-full transition-colors",
-                    index === activeSkillIndex ? "bg-primary scale-110" : "bg-gray-400/30 hover:bg-gray-400/50"
+                    "w-[1px] h-[1px] rounded-full transition-colors",
+                    index === activeSkillIndex ? "bg-primary scale-150" : "bg-gray-400/30 hover:bg-gray-400/50"
                   )}
                   aria-label={`Go to skill ${index + 1}`}
                 />
