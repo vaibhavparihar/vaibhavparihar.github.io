@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider, DarkThemeSwitcher } from "@/components/theme-provider"
+import { ThemeProvider, DarkThemeSwitcher } from "../components/theme-provider"
 import Script from "next/script"
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "700"] })
