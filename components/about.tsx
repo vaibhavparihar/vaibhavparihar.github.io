@@ -232,7 +232,7 @@ export default function About() {
                     variant="outline" 
                     className="group w-full sm:w-auto transition-all duration-300 hover:bg-primary/10 hover:border-primary/30"
                   >
-                    <a href="/resume.pdf" download className="flex items-center justify-center">
+                    <a href="https://raw.githubusercontent.com/vaibhavparihar/vaibhavparihar/master/machine-learning-engineer.pdf" download="Vaibhav_Parihar_ML_Engineer_Resume.pdf" className="flex items-center justify-center">
                       <motion.div
                         animate={{ y: [0, -3, 0] }}
                         transition={{ duration: 2, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
