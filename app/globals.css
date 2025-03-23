@@ -1,0 +1,385 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Improved light mode color palette for better readability */
+    --background: 210 25% 98%;
+    --foreground: 224 35% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 35% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 35% 16%;
+    --primary: 215 55% 55%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 215 20% 95%;
+    --secondary-foreground: 224 35% 16%;
+    --muted: 215 16% 50%;
+    --muted-foreground: 215 25% 30%;
+    --accent: 215 55% 55%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 60% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 216 20% 90%;
+    --input: 216 20% 90%;
+    --ring: 215 55% 55%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark mode colors */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 215 5% 65%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background: linear-gradient(to bottom, #F7FAFD, #EEF3F9);
+  }
+  body.dark {
+    background: black;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted/10;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/50;
+}
+
+/* SF Mono font for code and body text */
+@font-face {
+  font-family: "SF Mono";
+  src: url("/fonts/SFMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Mono";
+  src: url("/fonts/SFMono-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+.sf-mono {
+  font-family: "SF Mono", monospace;
+}
+
+/* 8px grid system */
+.grid-8 {
+  display: grid;
+  grid-gap: 8px;
+}
+
+.grid-16 {
+  display: grid;
+  grid-gap: 16px;
+}
+
+.grid-24 {
+  display: grid;
+  grid-gap: 24px;
+}
+
+.grid-32 {
+  display: grid;
+  grid-gap: 32px;
+}
+
+/* Section spacing */
+section {
+  padding: 80px 0;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 64px 0;
+  }
+
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .glass {
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+
+  /* Improved mobile spacing */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    font-size: 0.9375rem;
+  }
+
+  .card-content {
+    padding: 1rem;
+  }
+}
+
+/* Glassmorphism */
+.glass {
+  @apply dark:bg-opacity-5;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Light mode card styles */
+:not(.dark) .card {
+  background: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+/* Light mode button styles */
+:not(.dark) .button,
+:not(.dark) button[class*="bg-primary"],
+:not(.dark) a[class*="bg-primary"] {
+  background: linear-gradient(to right, #4B71C0, #5B81D0);
+  color: white;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+:not(.dark) .button:hover,
+:not(.dark) button[class*="bg-primary"]:hover,
+:not(.dark) a[class*="bg-primary"]:hover {
+  background: linear-gradient(to right, #3A61B0, #4A71C0);
+  box-shadow: 0px 4px 8px rgba(75, 113, 192, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Dark mode button styles - preserved from original */
+.dark .button,
+.dark button[class*="bg-primary"],
+.dark a[class*="bg-primary"] {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.dark .button:hover,
+.dark button[class*="bg-primary"]:hover,
+.dark a[class*="bg-primary"]:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(to right, #f5f5f5, #f5f5f5);
+  z-index: 100;
+}
+
+/* Add these responsive adjustments to the end of the file */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  section {
+    padding: 48px 0;
+  }
+
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Improved mobile experience for contact section */
+  .break-all {
+    word-break: break-all;
+  }
+}
+
+/* Fix for mobile menu */
+@media (max-width: 768px) {
+  .fixed.inset-0.z-50 {
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+  }
+}
+
+/* Scroll animations */
+.animate-in {
+  animation-duration: 0.6s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-in {
+  opacity: 0;
+  animation-name: fadeIn;
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation-name: slideUp;
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(30px);
+  animation-name: slideInRight;
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  animation-name: slideInLeft;
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  animation-name: scaleIn;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile optimized animations */
+@media (max-width: 768px) {
+  .animate-in {
+    animation-duration: 0.4s;
+  }
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion) {
+  .animate-in {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
