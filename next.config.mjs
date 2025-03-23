@@ -30,6 +30,7 @@ const nextConfig = {
   output: 'export',
   distDir: 'out',
   trailingSlash: true,
+  assetPrefix: "/",
 }
 
 mergeConfig(nextConfig, userConfig)

@@ -80,6 +80,7 @@ jobs:
         run: |
           touch ./out/.nojekyll
           touch ./.nojekyll
+          cp ./.nojekyll ./out/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
