@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "./ui/card"
 import { Code, Database, Cpu, LineChart, Layers, Terminal } from "lucide-react"
 
 const skillCategories = [

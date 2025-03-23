@@ -75,7 +75,7 @@ jobs:
         env:
           NODE_OPTIONS: "--max-old-space-size=4096"
           NEXT_TELEMETRY_DISABLED: 1
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build --debug
+        run: ${{ steps.detect-package-manager.outputs.runner }} next build --legacy-peer-deps --debug
       - name: Create .nojekyll files
         run: |
           touch ./out/.nojekyll

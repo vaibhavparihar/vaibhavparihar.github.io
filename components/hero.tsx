@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import { ArrowRight } from "lucide-react"
-import ParticleBackground from "@/components/particle-background"
+import ParticleBackground from "./particle-background"
 import { useTheme } from "next-themes"
 
 export default function Hero() {

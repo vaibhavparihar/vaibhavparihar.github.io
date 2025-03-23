@@ -4,8 +4,9 @@ import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import { Moon, Sun } from "lucide-react"
+import { Card } from "./ui/card"
 
 const navItems = [
   { name: "About", href: "#about" },

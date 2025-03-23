@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardFooter } from "./ui/card"
 import { Brain, BarChart3, Eye, Cloud, Activity } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"

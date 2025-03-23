@@ -2,9 +2,9 @@
 
 import { useRef, useState, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "./ui/card"
 import { Mail, Linkedin, Github, Phone, MapPin, Coffee } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import { useTheme } from "next-themes"
 
 export default function Contact() {

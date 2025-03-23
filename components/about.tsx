@@ -5,7 +5,7 @@
 import { useRef } from "react"
 import Image from "next/image"
 import { motion, useInView } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import { FileDown, GraduationCap, Calendar, Award, Brain, Network, Eye, BarChart2 } from "lucide-react"
 
 export default function About() {
