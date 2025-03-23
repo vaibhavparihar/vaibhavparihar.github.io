@@ -3,7 +3,7 @@
 import { useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import { Card, CardContent } from "./ui/card"
-import { Code, Database, Cpu, LineChart, Layers, Terminal } from "lucide-react"
+import { Code, Database, Cpu, LineChart, Layers, Terminal, ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const skillCategories = [
@@ -147,80 +147,80 @@ export default function Skills() {
           ))}
         </div>
 
-        {/* Mobile View - Carousel/Slider */}
+        {/* Mobile View - Improved Carousel/Slider */}
         <div className="sm:hidden">
-          <motion.div
-            key={activeSkillIndex}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Card className="h-full dark:bg-[#141414] border-white/5">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex items-center mb-6">
-                  <div className="mr-3 p-2 rounded-full bg-primary/10">{skillCategories[activeSkillIndex].icon}</div>
-                  <h3 className="text-lg sm:text-xl font-medium">{skillCategories[activeSkillIndex].name}</h3>
-                </div>
-
-                <div className="space-y-4">
-                  {skillCategories[activeSkillIndex].skills.map((skill, i) => (
-                    <div key={i}>
-                      <div className="flex justify-between mb-1">
-                        <span className="sf-mono text-sm font-light">{skill.name}</span>
-                        <span className="sf-mono text-xs text-gray-400">{skill.level}%</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${skill.level}%` }}
-                          transition={{ duration: 1, delay: i * 0.1 }}
-                          className="h-full bg-gradient-to-r from-primary/50 to-primary rounded-full"
-                        ></motion.div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Slider Navigation */}
-          <div className="mt-6 flex justify-center items-center">
+          <div className="relative px-6">
+            {/* Previous button positioned outside the card */}
             <button 
               onClick={goToPrevSkill}
-              className="w-10 h-10 rounded-full flex items-center justify-center bg-primary/10 hover:bg-primary/20 transition-colors mr-4"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-primary/10 hover:bg-primary/20 transition-colors"
+              aria-label="Previous skill"
             >
-              <span className="sr-only">Previous skill</span>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <ChevronLeft className="h-5 w-5" />
             </button>
             
-            {/* Dot indicators */}
-            <div className="flex space-x-2">
+            {/* Card with animation */}
+            <motion.div
+              key={activeSkillIndex}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card className="h-full dark:bg-[#141414] border-white/5">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center mb-6">
+                    <div className="mr-3 p-2 rounded-full bg-primary/10">{skillCategories[activeSkillIndex].icon}</div>
+                    <h3 className="text-lg sm:text-xl font-medium">{skillCategories[activeSkillIndex].name}</h3>
+                  </div>
+
+                  <div className="space-y-4">
+                    {skillCategories[activeSkillIndex].skills.map((skill, i) => (
+                      <div key={i}>
+                        <div className="flex justify-between mb-1">
+                          <span className="sf-mono text-sm font-light">{skill.name}</span>
+                          <span className="sf-mono text-xs text-gray-400">{skill.level}%</span>
+                        </div>
+                        <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${skill.level}%` }}
+                            transition={{ duration: 1, delay: i * 0.1 }}
+                            className="h-full bg-gradient-to-r from-primary/50 to-primary rounded-full"
+                          ></motion.div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+            
+            {/* Next button positioned outside the card */}
+            <button 
+              onClick={goToNextSkill}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-primary/10 hover:bg-primary/20 transition-colors"
+              aria-label="Next skill"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+
+          {/* Improved dot indicators - centered, smaller, and more refined */}
+          <div className="mt-4 flex justify-center items-center">
+            <div className="flex space-x-1.5">
               {skillCategories.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveSkillIndex(index)}
                   className={cn(
-                    "w-2 h-2 rounded-full transition-colors",
-                    index === activeSkillIndex ? "bg-primary" : "bg-gray-400/30"
+                    "w-1.5 h-1.5 rounded-full transition-colors",
+                    index === activeSkillIndex ? "bg-primary" : "bg-gray-400/30 hover:bg-gray-400/50"
                   )}
                   aria-label={`Go to skill ${index + 1}`}
                 />
               ))}
             </div>
-            
-            <button 
-              onClick={goToNextSkill}
-              className="w-10 h-10 rounded-full flex items-center justify-center bg-primary/10 hover:bg-primary/20 transition-colors ml-4"
-            >
-              <span className="sr-only">Next skill</span>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
           </div>
         </div>
       </div>

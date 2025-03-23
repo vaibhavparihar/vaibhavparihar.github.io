@@ -163,11 +163,8 @@ export default function Experience() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <Card className="dark:bg-[#141414] glass border-white/5 relative">
-                {/* Timeline dot and line */}
-                <div className="absolute top-0 left-6 bottom-0 w-px bg-white/10 -translate-x-1/2"></div>
-                <div className="absolute top-6 left-6 bg-primary h-4 w-4 rounded-full z-10 -translate-x-1/2"></div>
-
-                <CardContent className="p-6 pl-12">
+                {/* Removed timeline dot and line */}
+                <CardContent className="p-6">
                   <div className="flex flex-col">
                     <div className="flex items-center mb-2">
                       <div className="p-2 rounded-full bg-primary/10 mr-3">{exp.icon}</div>
