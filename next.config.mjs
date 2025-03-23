@@ -15,6 +15,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    domains: ['vaibhavparihar.github.io'],
   },
   experimental: {
     webpackBuildWorker: true,
@@ -27,6 +28,8 @@ const nextConfig = {
     pagesBufferLength: 2,
   },
   output: 'export',
+  distDir: 'out',
+  trailingSlash: true,
 }
 
 mergeConfig(nextConfig, userConfig)

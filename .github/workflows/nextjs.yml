@@ -70,11 +70,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }} --legacy-peer-deps
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
-      - name: Create .nojekyll file
-        run: touch ./out/.nojekyll
+        env:
+          NODE_OPTIONS: "--max-old-space-size=4096"
+          NEXT_TELEMETRY_DISABLED: 1
+        run: ${{ steps.detect-package-manager.outputs.runner }} next build --debug
+      - name: Create .nojekyll files
+        run: |
+          touch ./out/.nojekyll
+          touch ./.nojekyll
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
