@@ -141,8 +141,6 @@ portfolio/
 └── tsconfig.json         # TypeScript configuration
 ```
 
-
-
 For other deployment options, build the application using `npm run build` and deploy the built files to your hosting provider.
 
 ## Customization
@@ -178,4 +176,3 @@ This project is open source and available under the [MIT License](LICENSE).
 - [Framer Motion](https://www.framer.com/motion/)
 - [shadcn/ui](https://ui.shadcn.com/)
 - [Lucide Icons](https://lucide.dev/)
-
