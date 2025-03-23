@@ -149,14 +149,30 @@ export default function Skills() {
 
         {/* Mobile View - Improved Carousel/Slider */}
         <div className="sm:hidden">
-          <div className="relative px-6">
-            {/* Previous button positioned outside the card */}
+          <div className="relative px-10">
+            {/* Container with previous card preview (blurred) */}
+            {activeSkillIndex > 0 && (
+              <div className="absolute left-0 top-0 w-14 h-full opacity-30 overflow-hidden pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background z-10"></div>
+                <Card className="h-full scale-90 blur-[2px] dark:bg-[#141414] border-white/5">
+                  <CardContent className="p-3">
+                    <div className="flex items-center mb-3">
+                      <div className="mr-2 p-1 rounded-full bg-primary/10">
+                        {skillCategories[(activeSkillIndex - 1 + skillCategories.length) % skillCategories.length].icon}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+            
+            {/* Previous button - just the arrow icon */}
             <button 
               onClick={goToPrevSkill}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-primary/10 hover:bg-primary/20 transition-colors"
+              className="absolute left-1 top-1/2 -translate-y-1/2 z-20 text-primary/80 hover:text-primary transition-colors"
               aria-label="Previous skill"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-6 w-6" />
             </button>
             
             {/* Card with animation */}
@@ -196,26 +212,42 @@ export default function Skills() {
               </Card>
             </motion.div>
             
-            {/* Next button positioned outside the card */}
+            {/* Next button - just the arrow icon */}
             <button 
               onClick={goToNextSkill}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-primary/10 hover:bg-primary/20 transition-colors"
+              className="absolute right-1 top-1/2 -translate-y-1/2 z-20 text-primary/80 hover:text-primary transition-colors"
               aria-label="Next skill"
             >
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-6 w-6" />
             </button>
+
+            {/* Container with next card preview (blurred) */}
+            {activeSkillIndex < skillCategories.length - 1 && (
+              <div className="absolute right-0 top-0 w-14 h-full opacity-30 overflow-hidden pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background z-10"></div>
+                <Card className="h-full scale-90 blur-[2px] dark:bg-[#141414] border-white/5">
+                  <CardContent className="p-3">
+                    <div className="flex items-center mb-3">
+                      <div className="mr-2 p-1 rounded-full bg-primary/10">
+                        {skillCategories[(activeSkillIndex + 1) % skillCategories.length].icon}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
           </div>
 
-          {/* Improved dot indicators - centered, smaller, and more refined */}
-          <div className="mt-4 flex justify-center items-center">
-            <div className="flex space-x-1.5">
+          {/* Ultra-small dot indicators - 70% smaller than before */}
+          <div className="mt-3 flex justify-center items-center">
+            <div className="flex space-x-2">
               {skillCategories.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveSkillIndex(index)}
                   className={cn(
-                    "w-1.5 h-1.5 rounded-full transition-colors",
-                    index === activeSkillIndex ? "bg-primary" : "bg-gray-400/30 hover:bg-gray-400/50"
+                    "w-[3px] h-[3px] rounded-full transition-colors",
+                    index === activeSkillIndex ? "bg-primary scale-110" : "bg-gray-400/30 hover:bg-gray-400/50"
                   )}
                   aria-label={`Go to skill ${index + 1}`}
                 />
