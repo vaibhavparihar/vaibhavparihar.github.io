@@ -90,8 +90,8 @@ export default function ParticleBackground() {
 
     const initParticles = () => {
       particlesRef.current = []
-      // Reduce particles for better performance
-      const particleCount = shouldReduceAnimations ? 20 : 30;
+      // Increase particle count by approximately 50%
+      const particleCount = shouldReduceAnimations ? 30 : 45;
 
       for (let i = 0; i < particleCount; i++) {
         particlesRef.current.push({
@@ -140,11 +140,13 @@ export default function ParticleBackground() {
           const dy = mouseRef.current.y - particle.y
           const distance = Math.sqrt(dx * dx + dy * dy)
           
-          const attractRadius = 150; // Reduced from 200
+          // Increase attract radius by 40%
+          const attractRadius = 210; // Increased from 150
           if (distance < attractRadius) {
             const forceDirectionX = dx / distance
             const forceDirectionY = dy / distance
-            const force = (attractRadius - distance) / attractRadius * 0.8 // Reduced force 
+            // Increase force by 40%
+            const force = (attractRadius - distance) / attractRadius * 1.12 // Increased from 0.8 
             
             particle.x += forceDirectionX * force
             particle.y += forceDirectionY * force
@@ -164,7 +166,8 @@ export default function ParticleBackground() {
     }
 
     const connectParticles = (particleColor: string, isDarkMode: boolean) => {
-      const maxDistance = 120 // Reduced from 150
+      // Increase max distance by ~40% to create more connections
+      const maxDistance = 170 // Increased from 120
 
       for (let i = 0; i < particlesRef.current.length; i++) {
         // Only connect with nearby particles to improve performance
@@ -178,10 +181,10 @@ export default function ParticleBackground() {
           if (distanceSquared < maxDistanceSquared) {
             // Calculate real distance only when needed
             const distance = Math.sqrt(distanceSquared)
-            // Softer connections in light mode
+            // Increase opacity for more visible connections
             const opacity = isDarkMode 
-              ? 0.08 * (1 - distance / maxDistance) 
-              : 0.05 * (1 - distance / maxDistance);
+              ? 0.11 * (1 - distance / maxDistance) // Increased from 0.08
+              : 0.08 * (1 - distance / maxDistance); // Increased from 0.05
             
             ctx.beginPath()
             // In light mode, use a softer color for connections

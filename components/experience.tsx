@@ -59,16 +59,19 @@ export default function Experience() {
         const scrollPosition = window.scrollY + window.innerHeight / 2
         const relativePosition = scrollPosition - sectionTop
         
-        // Calculate precise position along the timeline based on scroll
-        // This uses a percentage of the section scrolled rather than discrete steps
-        const scrollPercentage = Math.min(
-          Math.max(relativePosition / sectionHeight, 0),
-          1
-        )
-        
-        // Map scroll percentage to card indices (0 to experiences.length - 1)
-        const mappedIndex = scrollPercentage * (experiences.length - 1)
-        setActiveIndex(mappedIndex)
+        // Only calculate this for desktop view (md and up screens)
+        if (window.innerWidth >= 768) {
+          // Calculate precise position along the timeline based on scroll
+          // This uses a percentage of the section scrolled rather than discrete steps
+          const scrollPercentage = Math.min(
+            Math.max(relativePosition / sectionHeight, 0),
+            1
+          )
+          
+          // Map scroll percentage to card indices (0 to experiences.length - 1)
+          const mappedIndex = scrollPercentage * (experiences.length - 1)
+          setActiveIndex(mappedIndex)
+        }
       }
     }
 
