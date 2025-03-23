@@ -244,18 +244,27 @@ export default function Skills() {
             </button>
           </div>
 
-          {/* Ultra-tiny dot indicators - now truly small */}
+          {/* Ultra-tiny dot indicators - fixed size */}
           <div className="mt-3 flex justify-center items-center">
-            <div className="flex space-x-2">
+            <div className="flex items-center gap-3">
               {skillCategories.map((_, index) => (
-                <button
+                <div
                   key={index}
                   onClick={() => setActiveSkillIndex(index)}
                   className={cn(
-                    "w-[1px] h-[1px] rounded-full transition-colors",
-                    index === activeSkillIndex ? "bg-primary scale-150" : "bg-gray-400/30 hover:bg-gray-400/50"
+                    "w-[0.5px] h-[0.5px] p-0 m-0 border-0 rounded-full",
+                    index === activeSkillIndex ? "bg-primary" : "bg-gray-400/30"
                   )}
+                  style={{ 
+                    minWidth: '2px', 
+                    minHeight: '2px', 
+                    padding: 0, 
+                    margin: '0 3px',
+                    transform: 'none'
+                  }}
                   aria-label={`Go to skill ${index + 1}`}
+                  role="button"
+                  tabIndex={0}
                 />
               ))}
             </div>
